@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>IndependentWork 3</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        <template id="TableComp">
+            <table class="table table-triped table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Passed</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,index) in list">
+                        <td>{{item.name}}</td>
+                        <td>
+                            {{item.passed}}
+                        </td>
+                        <td><button class="btn btn-danger" @click="$emit('remove', index)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </template>
+        <template id="ListComp">
+            <ul class="list-group">
+                <li v-for="(item,index) in list" class="list-group-item">
+                    CourseName: {{item.name}} Passed: {{item.passed}} <button class="btn btn-danger" @click="$emit('remove', index)">Delete</button></td>
+                </li>
+            </ul>
+        </template>
+        <template id="BudgesComp">
+            <ol class="list-group">
+                <li v-for="(item,index) in list" class="list-group-item">
+                    <span class="badge">{{item.passed}}</span>
+                    {{item.name}}
+                    <button class="btn btn-danger" @click="$emit('remove', index)">Delete</button></td>
+                </li>
+            </ol>
+        </template>
+
+
+        <div class="container">
+            <div id="app">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Планировщик курсов на Vue</h1>
+                        <h2>Имя пользователя: {{name}}</h2>
+                        <h3>Кол-во курсов: {{list.length}}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="btn-group">
+                            <button class="btn btn-default" v-for="item in options" style="margin-right: 5px" @click="switchCont(item)">{{item}}</button>
+                        </div>
+                        <component v-bind:is="current" v-bind:list="list" @remove="deleteCourse($event)"> </component>
+                        
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Course name" aria-label="Course name" v-model="inputNewCourse">
+                            <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" @click="addNewItem">Add new course</button>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Course name" aria-label="Course name" v-model="inputDeletedItem">
+                            <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" @click="deleteItem">Delete course</button>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="The initial name of the course" aria-label="The initial name of the course" v-model="preItemName">
+                            <input type="text" class="form-control" placeholder="Desired course name" aria-label="Desired course name" v-model="afterItemName">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" @click="editCourseName">Edit course name</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <script src="app.js"></script>  
+    </body>
+</html>
